@@ -8,6 +8,10 @@
 					"sg-04ac5a23a5bf1aae9"
 
 				],
+        "IamInstanceProfile": [
+        "first"
+        ],
+        
 				"SubnetsEast": [
 					"subnet-00a0a347942accc07"
 				],
