@@ -6,7 +6,7 @@
 			"dev": {
 				"SecurityGroupsEast": [
 					"sg-04ac5a23a5bf1aae9"
-					
+
 				],
 				"SubnetsEast": [
 					"subnet-00a0a347942accc07"
@@ -14,10 +14,10 @@
 				"AZsEast": [
 					"us-east-2c"
 				],
-				"IamInstanceProfile": "first",
+				"IamInstanceProfile": "dev",
 				"environmentparameter": "dev",
 				"ChefServer": "dev"
-				
+
 			}
 		}
 	},
@@ -82,10 +82,10 @@
 							"#!/bin/bash -v \n",
 							"yum update -y \n",
 							"yum install java-1.8.0-openjdk-devel.x86_64 -y \n",
-							"yum install wget -y \n"
-							
-							
-							
+							"yum install wget -y \n",
+
+
+
 							{
 								"Fn::FindInMap": ["Environments", {
 									"Ref": "EnvironmentValue"
