@@ -8,19 +8,14 @@
 					"sg-04ac5a23a5bf1aae9"
 
 				],
-        "IamInstanceProfile": [
-        "first"
-        ],
-        
 				"SubnetsEast": [
 					"subnet-00a0a347942accc07"
 				],
 				"AZsEast": [
 					"us-east-2c"
 				],
-				"IamInstanceProfile": "dev",
-				"environmentparameter": "dev",
-				"ChefServer": "dev"
+				"environmentparameter": "dev"
+
 
 			}
 		}
@@ -67,11 +62,6 @@
 						"Ref": "EnvironmentValue"
 					}, "SecurityGroupsEast"]
 				}
-			},
-			"IamInstanceProfile": {
-				"Fn::FindInMap": ["Environments", {
-					"Ref": "EnvironmentValue"
-				}, "IamInstanceProfile"]
 			},
 			"ImageId": {
 				"Ref": "AMIID"
