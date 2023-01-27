@@ -58,96 +58,105 @@
 					}
 				}],
 				"SecurityGroups": {
-					"Fn::FindInMap": ["Environments", {
-						"Ref": "EnvironmentValue"
-					}, "SecurityGroupsEast"]
-				}
-			},
-			"ImageId": {
-				"Ref": "AMIID"
-			},
-			"InstanceType": {
-				"Ref": "InstanceType"
-			},
-			"UserData": {
-				"Fn::Base64": {
-					"Fn::Join": [
-						"", [
-							"#!/bin/bash -v \n",
-							"yum update -y \n",
-							"yum install java-1.8.0-openjdk-devel.x86_64 -y \n",
-							"yum install wget -y \n",
-
-
-
-							{
-								"Fn::FindInMap": ["Environments", {
-									"Ref": "EnvironmentValue"
-								}, "nginx_env"]
-							}
-						]
-					]
-				}
-
-
-			}
-		},
-		"AutoScaleGroup": {
-			"UpdatePolicy": {
-				"AutoScalingScheduledAction": {
-					"IgnoreUnmodifiedGroupSizeProperties": "true"
-				},
-				"AutoScalingRollingUpdate": {
-					"MinInstancesInService": "1",
-					"MaxBatchSize": "2",
-					"PauseTime": "PT2M",
-					"WaitOnResourceSignals": "true"
-				}
-			},
-			"Type": "AWS::AutoScaling::AutoScalingGroup",
-			"Properties": {
-				"AvailabilityZones": {
-					"Fn::FindInMap": ["Environments", {
-						"Ref": "EnvironmentValue"
-					}, "AZsEast"]
-				},
-				"LaunchConfigurationName": {
-					"Ref": "LaunchConfig"
-				},
-				"MaxSize": "1",
-				"MinSize": "1",
-				"VPCZoneIdentifier": {
-					"Fn::FindInMap": ["Environments", {
-						"Ref": "EnvironmentValue"
-					}, "SubnetsEast"]
-				}
-			}
-		},
-		"Outputs": {
-			"1": {
-				"Value": {
-					"Ref": "AMIID"
-				},
-				"Description": "AmiId"
-			},
-			"2": {
-				"Value": {
-					"Fn::FindInMap": [
-						"Environments",
+					"Fn::FindInMap": ["Environments",
 						{
 							"Ref": "EnvironmentValue"
 						},
-						"IamInstanceProfile"
+						"SecurityGroupsEast"
 					]
-				},
-				"Description": "IamInstanceProfile"
+				}
 			},
-			"3": {
-				"Value": {
-					"Ref": "InstanceType"
-				},
-				"Description": "InstanceType"
+			"ImageId": {
+				"Fn::FindInMap": ["Environments",
+					{
+						"Ref": "EnvironmentValue"
+					},
+					"AMIID"
+				]
+			}
+		},
+		"InstanceType": {
+			"Ref": "InstanceType"
+		},
+		"UserData": {
+			"Fn::Base64": {
+				"Fn::Join": [
+					"", [
+						"#!/bin/bash -v \n",
+						"yum update -y \n",
+						"yum install java-1.8.0-openjdk-devel.x86_64 -y \n",
+						"yum install wget -y \n",
+
+
+
+						{
+							"Fn::FindInMap": ["Environments", {
+								"Ref": "EnvironmentValue"
+							}, "nginx_env"]
+						}
+					]
+				]
+			}
+
+
+		}
+	},
+	"AutoScaleGroup": {
+		"UpdatePolicy": {
+			"AutoScalingScheduledAction": {
+				"IgnoreUnmodifiedGroupSizeProperties": "true"
+			},
+			"AutoScalingRollingUpdate": {
+				"MinInstancesInService": "1",
+				"MaxBatchSize": "2",
+				"PauseTime": "PT2M",
+				"WaitOnResourceSignals": "true"
+			}
+		},
+		"Type": "AWS::AutoScaling::AutoScalingGroup",
+		"Properties": {
+			"AvailabilityZones": {
+				"Fn::FindInMap": ["Environments", {
+					"Ref": "EnvironmentValue"
+				}, "AZsEast"]
+			},
+			"LaunchConfigurationName": {
+				"Ref": "LaunchConfig"
+			},
+			"MaxSize": "1",
+			"MinSize": "1",
+			"VPCZoneIdentifier": {
+				"Fn::FindInMap": ["Environments", {
+					"Ref": "EnvironmentValue"
+				}, "SubnetsEast"]
 			}
 		}
+	},
+	"Outputs": {
+		"1": {
+			"Value": {
+				"Ref": "AMIID"
+			},
+			"Description": "AmiId"
+		},
+		"2": {
+			"Value": {
+				"Fn::FindInMap": [
+					"Environments",
+					{
+						"Ref": "EnvironmentValue"
+					},
+					"IamInstanceProfile"
+				]
+			},
+			"Description": "IamInstanceProfile"
+		},
+		"3": {
+			"Value": {
+				"Ref": "InstanceType"
+			},
+			"Description": "InstanceType"
+		}
 	}
+
 }
