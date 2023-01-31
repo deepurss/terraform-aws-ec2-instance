@@ -29,13 +29,10 @@
 			"Description": "What is the environment?",
 			"Type": "String"
 		},
-		"AMIID": {
-			"Description": "Provide the Value for AMI",
-			"Type": "ami-092b43193629811af"
-		},
+
 		"InstanceType": {
 			"Description": "Provide the Instance Type. Ex: m4.large/m4.xlarge",
-			"Type": "String"
+			"Type": "t2.micro"
 		},
 		"AppInstanceName": {
 			"Description": "InstanceIdentifier for tagging on Console",
@@ -66,17 +63,14 @@
 					]
 				}
 			},
-			"ImageId": {
+			"InstanceType": {
 				"Fn::FindInMap": ["Environments",
 					{
 						"Ref": "EnvironmentValue"
 					},
-					"AMIID"
+					"InstanceType"
 				]
 			}
-		},
-		"InstanceType": {
-			"Ref": "InstanceType"
 		},
 		"UserData": {
 			"Fn::Base64": {
@@ -131,32 +125,6 @@
 				}, "SubnetsEast"]
 			}
 		}
-	},
-	"Outputs": {
-		"1": {
-			"Value": {
-				"Ref": "AMIID"
-			},
-			"Description": "AmiId"
-		},
-		"2": {
-			"Value": {
-				"Fn::FindInMap": [
-					"Environments",
-					{
-						"Ref": "EnvironmentValue"
-					},
-					"IamInstanceProfile"
-				]
-			},
-			"Description": "IamInstanceProfile"
-		},
-		"3": {
-			"Value": {
-				"Ref": "InstanceType"
-			},
-			"Description": "InstanceType"
-		}
-	}
 
+	}
 }
